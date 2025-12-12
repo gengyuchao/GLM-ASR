@@ -77,3 +77,60 @@ For the two example audio clips above, the model is able to produce accurate tra
 be careful not to allow fabric to become too hot which can cause shrinkage or in extreme cases scorch
 我还能再搞一个，就算是非常小的声音也能识别准确
 ```
+
+## Voice-to-Text Web Application User Guide
+### Quick Start
+1. **Install dependencies**:
+```bash
+pip install flask pydub
+```
+2. **Start the service**:
+```bash
+python app.py --checkpoint_dir /path/to/model --device cuda
+```
+3. **Access the application**:
+   - Open browser and visit `http://127.0.0.1:5000`
+   - Allow microphone permission on first use
+
+### Feature Usage
+#### 🎤 Microphone Recording
+- Click the "Microphone Recording" tab
+- Click "Start Recording" button
+- Automatic stop when continuous silence detected (default: 2 seconds)
+- Manual stop possible via button
+- Transcribed results displayed in real-time below
+
+#### 📁 Upload Audio File
+- Click the "Upload Audio File" tab
+- Click upload area or drag-and-drop audio files here
+- Supported formats: WAV, MP3, M4A, FLAC, OGG
+- File size limit: 100MB
+- Long audio files automatically processed in segments, with results displayed in real-time after each segment
+
+### Key Features
+- **Smart Silence Detection**: Automatically stops recording at natural speaking pauses
+- **Segmented Processing**: Long audio files split into manageable segments to avoid model constraints
+- **Real-time Progress**: Shows segment processing status and estimated remaining time
+- **Multi-format Support**: Compatible with common audio formats
+- **Responsive Interface**: Adapts seamlessly to desktop and mobile devices
+
+### Troubleshooting
+1. **Microphone permission denied**:
+   - Click the microphone icon in browser address bar
+   - Select "Always allow" for this site
+   - Refresh the page and retry
+
+2. **Audio file processing failed**:
+   - Verify correct file format (WAV, MP3, M4A, FLAC, OGG)
+   - Check for file corruption
+   - Confirm ffmpeg is installed on system
+
+3. **Interface stuck in loading state**:
+   - Verify model path correctness
+   - Ensure sufficient GPU memory (or use `--device cpu`)
+   - Check console logs for detailed error messages
+
+### Advanced Settings
+- **Adjust silence timeout**: Drag slider to set automatic stop duration (1-10 seconds)
+- **Cancel processing**: Click "Cancel Processing" button during long audio handling
+- **Segment navigation**: Click any segment in the list to jump to specific audio section
